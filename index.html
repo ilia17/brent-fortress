@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Brent's Crypto Fortress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Share+Tech&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="wrap">
+  <div id="topbar">
+    <div id="brand">&#8383; Brent's Fortress</div>
+    <div class="hud-sep"></div>
+    <div class="hud"><span class="hud-l">&#128176; Crypto</span><span class="hud-v" id="s-gold">200</span></div>
+    <div class="hud"><span class="hud-l">&#10084; Lives</span><span class="hud-v" id="s-lives">20</span></div>
+    <div class="hud"><span class="hud-l">&#127942; Wave</span><span class="hud-v" id="s-wave">0/10</span></div>
+    <div class="hud"><span class="hud-l">&#11088; Score</span><span class="hud-v" id="s-score">0</span></div>
+    <div class="hud-sep"></div>
+    <button id="lb-btn">&#127942; Scores</button>
+    <div id="wave-cd">
+      <div id="cd-label">COMPLETE TUTORIAL</div>
+      <div id="cd-num">&#9654;</div>
+    </div>
+  </div>
+
+  <div id="canvas-wrap">
+    <canvas id="gc"></canvas>
+
+    <div id="shop-overlay">
+      <div class="panel">
+        <h2>&#128722; Crypto Shop</h2>
+        <div id="shop-content"></div>
+        <button class="panel-btn" id="close-shop">Close &amp; Continue</button>
+      </div>
+    </div>
+
+    <div id="lb-overlay">
+      <div class="panel">
+        <h2>&#127942; Leaderboard</h2>
+        <div id="lb-rows"></div>
+        <button class="panel-btn" id="close-lb">Close</button>
+      </div>
+    </div>
+
+    <div id="tut-overlay" class="show">
+      <div class="panel tut-panel">
+        <div class="tut-header">
+          <span class="tut-logo">&#8383;</span>
+          <div>
+            <h2>Brent's Crypto Fortress</h2>
+            <p class="tut-sub">Defend Brent's Bitcoin from the US Army!</p>
+          </div>
+        </div>
+
+        <div class="tut-grid">
+          <div class="tut-card">
+            <div class="tut-icon">&#127757;</div>
+            <div class="tut-card-title">The Map</div>
+            <div class="tut-card-body">Enemies march along the <span class="hl-brown">brown path</span> from the <span class="hl-green">Army Camp</span> (top-left) to <span class="hl-gold">Brent</span> (bottom-right). Place towers on the <span class="hl-green">green tiles</span> to stop them.</div>
+          </div>
+
+          <div class="tut-card">
+            <div class="tut-icon">&#9889;</div>
+            <div class="tut-card-title">Place Towers</div>
+            <div class="tut-card-body">Select a tower type from the bar at the bottom, then <span class="hl-green">click any green tile</span> to build it. You can't build on the path.</div>
+          </div>
+
+          <div class="tut-card">
+            <div class="tut-icon">&#11014;&#65039;</div>
+            <div class="tut-card-title">Upgrade &amp; Sell</div>
+            <div class="tut-card-body"><span class="hl-green">Click a placed tower</span> to upgrade it (costs crypto). Between waves the <span class="hl-gold">Shop</span> opens — use it to sell towers you no longer need.</div>
+          </div>
+
+          <div class="tut-card">
+            <div class="tut-icon">&#128176;</div>
+            <div class="tut-card-title">Economy</div>
+            <div class="tut-card-body">You start with <span class="hl-gold">200 &#8383;</span>. Killing enemies earns crypto. Clearing a wave pays a <span class="hl-gold">wave bonus</span>. If you run out, sell old towers.</div>
+          </div>
+
+          <div class="tut-card">
+            <div class="tut-icon">&#128128;</div>
+            <div class="tut-card-title">Enemy Types</div>
+            <div class="tut-card-body">Early waves send basic soldiers. Later waves mix in <span class="hl-red">tanks</span>, <span class="hl-red">helicopters</span>, and elite units. Every 3rd wave is a <span class="hl-red">BOSS wave</span> — be ready!</div>
+          </div>
+
+          <div class="tut-card">
+            <div class="tut-icon">&#10084;&#65039;</div>
+            <div class="tut-card-title">Lives</div>
+            <div class="tut-card-body">You have <span class="hl-green">20 lives</span>. Each enemy that reaches Brent costs <span class="hl-red">1 life</span> (bosses cost <span class="hl-red">5</span>). Reach 0 and it's game over — Brent loses his Bitcoin!</div>
+          </div>
+        </div>
+
+        <div class="tut-towers">
+          <div class="tut-t-label">Tower quick-ref:</div>
+          <div class="tut-t-row">
+            <span class="tut-t" style="--tc:#378ADD">&#9889; <b>Laser</b> — fast, single target, cheap</span>
+            <span class="tut-t" style="--tc:#D85A30">&#128640; <b>Rocket</b> — slow, splash damage</span>
+            <span class="tut-t" style="--tc:#5DCAA5">&#127744; <b>EMP</b> — slows enemies in range</span>
+            <span class="tut-t" style="--tc:#D4537E">&#128128; <b>Meme</b> — confuses &amp; damages</span>
+            <span class="tut-t" style="--tc:#FAC775">&#9762;&#65039; <b>Nuke</b> — massive AoE, expensive</span>
+          </div>
+        </div>
+
+        <button class="panel-btn tut-start" id="close-tut">&#9654; Let's Protect Brent!</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="bottom">
+    <div id="tower-panel">
+      <span style="font-size:11px;color:#5DCAA5;margin-right:4px;">PLACE:</span>
+
+      <div class="tbtn-wrap">
+        <button class="tbtn sel" data-type="laser" style="--tc:#378ADD">&#9889; Laser <em>50&#8383;</em></button>
+        <div class="tbtn-tip">
+          <div class="tip-name">Laser Bot</div>
+          <div class="tip-stat"><span>DMG</span><span>15</span></div>
+          <div class="tip-stat"><span>DPS</span><span>~24</span></div>
+          <div class="tip-stat"><span>SPD</span><span>Fast</span></div>
+          <div class="tip-stat"><span>RANGE</span><span>3.5 cells</span></div>
+          <div class="tip-tag">Single target</div>
+        </div>
+      </div>
+
+      <div class="tbtn-wrap">
+        <button class="tbtn" data-type="rocket" style="--tc:#D85A30">&#128640; Rocket <em>80&#8383;</em></button>
+        <div class="tbtn-tip">
+          <div class="tip-name">Rocket Turret</div>
+          <div class="tip-stat"><span>DMG</span><span>42</span></div>
+          <div class="tip-stat"><span>DPS</span><span>~31</span></div>
+          <div class="tip-stat"><span>SPD</span><span>Medium</span></div>
+          <div class="tip-stat"><span>RANGE</span><span>4.5 cells</span></div>
+          <div class="tip-tag tip-aoe">AoE splash 1.3</div>
+        </div>
+      </div>
+
+      <div class="tbtn-wrap">
+        <button class="tbtn" data-type="emp" style="--tc:#5DCAA5">&#127744; EMP <em>120&#8383;</em></button>
+        <div class="tbtn-tip">
+          <div class="tip-name">EMP Tower</div>
+          <div class="tip-stat"><span>DMG</span><span>10</span></div>
+          <div class="tip-stat"><span>DPS</span><span>~6</span></div>
+          <div class="tip-stat"><span>SPD</span><span>Slow</span></div>
+          <div class="tip-stat"><span>RANGE</span><span>5 cells</span></div>
+          <div class="tip-tag tip-slow">Slows 45%</div>
+        </div>
+      </div>
+
+      <div class="tbtn-wrap">
+        <button class="tbtn" data-type="meme" style="--tc:#D4537E">&#128128; Meme <em>60&#8383;</em></button>
+        <div class="tbtn-tip">
+          <div class="tip-name">Meme Cannon</div>
+          <div class="tip-stat"><span>DMG</span><span>28</span></div>
+          <div class="tip-stat"><span>DPS</span><span>~32</span></div>
+          <div class="tip-stat"><span>SPD</span><span>Medium</span></div>
+          <div class="tip-stat"><span>RANGE</span><span>3.2 cells</span></div>
+          <div class="tip-tag">Best DPS/cost</div>
+        </div>
+      </div>
+
+      <div class="tbtn-wrap">
+        <button class="tbtn" data-type="nuke" style="--tc:#FAC775">&#9762;&#65039; Nuke <em>200&#8383;</em></button>
+        <div class="tbtn-tip">
+          <div class="tip-name">Nuke Tower</div>
+          <div class="tip-stat"><span>DMG</span><span>90</span></div>
+          <div class="tip-stat"><span>DPS</span><span>~31</span></div>
+          <div class="tip-stat"><span>SPD</span><span>Very slow</span></div>
+          <div class="tip-stat"><span>RANGE</span><span>6 cells</span></div>
+          <div class="tip-tag tip-aoe">AoE splash 2.1</div>
+        </div>
+      </div>
+
+      <span style="font-size:11px;color:#5a7a5a;margin-left:auto;">Click placed tower to upgrade</span>
+    </div>
+  </div>
+
+  <div id="msgbar">Place towers on the green tiles, then hit Start Wave. Defend Brent's Bitcoin!</div>
+</div>
+
+<!-- Load order matters: each file depends on the ones above it -->
+<script src="js/constants.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/path.js"></script>
+<script src="js/state.js"></script>
+<script src="js/assets.js"></script>
+<script src="js/entities.js"></script>
+<script src="js/renderer.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
